@@ -96,21 +96,21 @@ Using the Arduino IDE, install the [firmware](https://github.com/rwaldron/j5-ds-
 ![DS Touch μC Backpack](https://github.com/rwaldron/j5-ds-touch/blob/master/assets/ds-touch-backpack.png)
 
 
-### Connect To I2C Capable Platform
+## Connect To I2C Capable Platform
 
-##### Arduino UNO
+### Arduino UNO
 
 ![DS Touch Backpack + Arduino UNO](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-uno.png)
 
-##### Tessel 2
+### Tessel 2
 
 ![DS Touch Backpack + Tessel 2](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-tessel-2.png)
 
-##### Intel Edison MiniBoard
+### Intel Edison MiniBoard
 
 ![DS Touch Backpack + Intel Edison MiniBoard](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-edison-mini.png)
 
-##### Intel Edison Arduino Board
+### Intel Edison Arduino Board
 
 ![DS Touch Backpack + Arduino Board](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-edison-arduino.png)
 
