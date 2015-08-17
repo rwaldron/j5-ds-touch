@@ -1,6 +1,6 @@
 {
   "name": "j5-ds-touch",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Nintendo DS Touch Screen plugin for Johnny-Five",
   "main": "index.js",
   "scripts": {
