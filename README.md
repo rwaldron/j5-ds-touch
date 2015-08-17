@@ -71,6 +71,13 @@ board.on("ready", function() {
 });
 ```
 
+## Ploma App
+
+This repo comes with a version of @evhan55's example [Ploma](https://github.com/evhan55/ploma) app that has been modified to accept input from a socket instead of a Wacom tablet. 
+
+![Hello Ploma](https://github.com/rwaldron/j5-ds-touch/blob/master/assets/hello-ploma.png)
+
+
 ## Backpack Controller
 
 ### Install Firmware
@@ -86,15 +93,15 @@ Using the Arduino IDE, install the [firmware](https://github.com/rwaldron/j5-ds-
 
 ##### Arduino UNO
 
-![DS Touch Backpack + Arduino UNO](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/blob/master/assets/ds-touch-backpack-with-uno.png)
+![DS Touch Backpack + Arduino UNO](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-uno.png)
 
 ##### Tessel 2
 
-![DS Touch Backpack + Tessel 2](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/blob/master/assets/ds-touch-backpack-with-tessel-2.png)
+![DS Touch Backpack + Tessel 2](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-tessel-2.png)
 
 ##### Intel Edison MiniBoard
 
-![DS Touch Backpack + Intel Edison MiniBoard](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/blob/master/assets/ds-touch-backpack-with-edison-mini.png)
+![DS Touch Backpack + Intel Edison MiniBoard](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-edison-mini.png)
 
 ##### Intel Edison Arduino Board
 
