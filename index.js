@@ -15,6 +15,8 @@ module.exports = function(five) {
         this, opts = five.Board.Options(opts)
       );
 
+      var address = opts.address || 0x04;
+
       var state = {
         x: 0,
         y: 0,
@@ -22,7 +24,7 @@ module.exports = function(five) {
 
       this.io.i2cConfig(opts);
 
-      this.io.i2cRead(0x04, 4, function(data) {
+      this.io.i2cRead(address, 4, function(data) {
         var x = five.Fn.int16(data[0], data[1]);
         var y = five.Fn.int16(data[2], data[3]);
 

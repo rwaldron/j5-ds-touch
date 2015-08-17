@@ -1,6 +1,6 @@
 #include <Wire.h>
 
-#define I2C_ADDRESS 4
+#define I2C_ADDRESS 0x04
 #define REGISTER_SIZE 4
 
 // TODO: These should be settable via i2c write
