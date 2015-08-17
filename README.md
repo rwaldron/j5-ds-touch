@@ -5,10 +5,61 @@ A DS Touch Screen component plugin for [Johnny-Five](https://github.com/rwaldron
 - [SparkFun Nintendo DS Screen Kit](https://www.sparkfun.com/products/13631)
 - [Adafruit Touch Screen (Nintendo DSL digitizer)](https://www.adafruit.com/products/333) + [Touch screen breakout board](https://www.adafruit.com/product/334)
 
+## API & Documentation
 
-## Basic Usage
+### DSTouch 
 
-### Arduino UNO (And Friends)
+The `DSTouch` class constructs objects that represent a single Nintendo DS Touch screen component.
+
+#### Parameters
+
+| Property   | Type      | Value(s)/Description      | Default | Required |
+|------------|-----------|---------------------------|---------|-----------|
+| address    | number    | Address for I2C device \*  | 0x04    | no |
+
+\* The address used by this "backpack" component is `0x04`. This can be changed by modifying the value in the firmware. 
+
+#### Properties
+
+| Property   | Type      | Value(s)/Description      |
+|------------|-----------|---------------------------|
+| x    | number    | The `x` coordinate of the present touch point. Will read `1023` if there is no touch point.  |
+| y    | number    | The `y` coordinate of the present touch point. Will read `1023` if there is no touch point.  |
+
+
+#### Events
+
+- **change** The "change" event is emitted whenever the `[x, y]` coordinates of the pointer has changed.
+
+- **data** The "data" event is fired as frequently as the user defined `freq` will allow in milliseconds.
+
+- **down** The pointer is touching the surface, but was previously not touching the surface.
+
+- **move** The pointer is touching the surface and has changed coordinates since the last position was read. 
+
+- **up** The pointer is not touching the surface, but was previously touching the surface.
+
+
+NOTE: The word _pointer_ means either stylus or finger.
+
+
+
+## Backpack Controller
+
+### Install Firmware
+
+Using the Arduino IDE, install the [firmware](https://github.com/rwaldron/j5-ds-touch/blob/master/firmware/ds_touch_slave.ino) to your AVR based microcontroller of choice. 
+
+### Assembly
+
+![DS Touch μC Backpack](https://github.com/rwaldron/j5-ds-touch/blob/master/assets/ds-touch-backpack.png)
+
+
+## Connect To I2C Capable Platform
+
+### Arduino UNO
+
+![DS Touch Backpack + Arduino UNO](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-uno.png)
 
 ```js
 var five = require("johnny-five");
@@ -28,6 +79,8 @@ board.on("ready", function() {
 ```
 
 ### Tessel 2
+
+![DS Touch Backpack + Tessel 2](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-tessel-2.png)
 
 ```js
 var five = require("johnny-five");
@@ -49,7 +102,14 @@ board.on("ready", function() {
 });
 ```
 
-### Intel Edison
+### Intel Edison MiniBoard
+
+![DS Touch Backpack + Intel Edison MiniBoard](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-edison-mini.png)
+
+### Intel Edison Arduino Board
+
+![DS Touch Backpack + Arduino Board](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-edison-arduino.png)
+
 
 ```js
 var five = require("johnny-five");
@@ -85,34 +145,6 @@ To Run:
 node eg/server.js
 ```
 
-## Backpack Controller
-
-### Install Firmware
-
-Using the Arduino IDE, install the [firmware](https://github.com/rwaldron/j5-ds-touch/blob/master/firmware/ds_touch_slave.ino) to your AVR based microcontroller of choice. 
-
-### Assembly
-
-![DS Touch μC Backpack](https://github.com/rwaldron/j5-ds-touch/blob/master/assets/ds-touch-backpack.png)
-
-
-## Connect To I2C Capable Platform
-
-### Arduino UNO
-
-![DS Touch Backpack + Arduino UNO](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-uno.png)
-
-### Tessel 2
-
-![DS Touch Backpack + Tessel 2](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-tessel-2.png)
-
-### Intel Edison MiniBoard
-
-![DS Touch Backpack + Intel Edison MiniBoard](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-edison-mini.png)
-
-### Intel Edison Arduino Board
-
-![DS Touch Backpack + Arduino Board](https://raw.githubusercontent.com/rwaldron/j5-ds-touch/master/assets/ds-touch-backpack-with-edison-arduino.png)
 
 
 ## NOTE
