@@ -2,6 +2,9 @@
 
 A DS Touch Screen component plugin for [Johnny-Five](https://github.com/rwaldron/johnny-five).
 
+- [SparkFun Nintendo DS Screen Kit](https://www.sparkfun.com/products/13631)
+- [Adafruit Touch Screen (Nintendo DSL digitizer)](https://www.adafruit.com/products/333) + [Touch screen breakout board](https://www.adafruit.com/product/334)
+
 
 ## Basic Usage
 
