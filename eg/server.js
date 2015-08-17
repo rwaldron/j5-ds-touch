@@ -2,12 +2,13 @@
 var http = require("http");
 var socket = require("socket.io");
 var fs = require("fs");
+var exec = require("child_process").exec;
 
 // Hardware deps
 var five = require("johnny-five");
 var DSTouch = require("../")(five);
 
-var board = new five.Board();
+
 var app = http.createServer(function(req, res) {
   var path = __dirname;
 
@@ -30,16 +31,42 @@ var app = http.createServer(function(req, res) {
 app.listen(8080);
 
 var io = socket.listen(app);
+var board = new five.Board();
 
 board.on("ready", function() {
+  var isDrawing = false;
+
   io.sockets.on("connection", function(socket) {
     console.log("connected");
     var touch = new DSTouch();
 
-    touch.on("change", function() {
-      if (this.x < 1000 && this.y < 1000) {
-        socket.emit("change", { x: this.x, y: this.y });
+    touch.on("data", function() {
+      var data = { x: this.x, y: this.y };
+
+      if (isDrawing) {
+        if (!isTouching(data)) {
+          isDrawing = false;
+          socket.emit("up", data);
+        } else {
+          socket.emit("move", data);
+        }
+      } else {
+        if (!isDrawing) {
+
+          if (isTouching(data)) {
+            isDrawing = true;
+            socket.emit("down", data);
+            socket.emit("move", data);
+
+          }
+        }
       }
     });
   });
+
+  exec("open http://localhost:8080/ploma-app/index.html");
 });
+
+function isTouching(point) {
+  return point.x !== 1023 && point.y !== 1023
+}

@@ -55,14 +55,24 @@
       context.lineTo(nX, nY);
       context.stroke();
 
-      // context.moveTo();
-      // context.arcTo(nX, nY, x, y, 5);
-      // context.closePath();
-      // context.fill();
-
       x = nX;
       y = nY;
     });
+
+    $body.on("click", function(event) {
+      var $target = $(event.target);
+      var operation = controls[$target.attr("id")];
+
+      if (operation) {
+        operation();
+      }
+    });
+
+    var controls = {
+      clear: function() {
+        context.clearRect(0, 0, 800, 600);
+      }
+    };
   });
   </script>
 </body>
