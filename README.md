@@ -78,6 +78,13 @@ This repo comes with a version of @evhan55's example [Ploma](https://github.com/
 ![Hello Ploma](https://github.com/rwaldron/j5-ds-touch/blob/master/assets/hello-ploma.png)
 
 
+To Run: 
+
+
+```sh
+node eg/server.js
+```
+
 ## Backpack Controller
 
 ### Install Firmware
