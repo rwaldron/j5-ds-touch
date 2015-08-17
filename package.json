@@ -1,12 +1,14 @@
 {
   "name": "j5-ds-touch",
-  "version": "0.1.1",
-  "description": "Nintendo DS Touch Screen plugin for Johnny-Five",
+  "version": "0.2.0",
+  "description": "Nintendo DS Touch Screen component class plugin for Johnny-Five",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "Arduino", "Tessel", "Edison", "Nintendo", "DS", "Touch", "I2C"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
