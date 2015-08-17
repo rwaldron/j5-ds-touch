@@ -90,6 +90,12 @@
   "use strict";
 
   window.onload = function() {
+    // Be sure to change this domain accordingly!
+    // For example, it might be
+    //
+    // - http://edison.local:8080 (on Intel Edison)
+    // -
+    //
     var socket = io.connect("http://127.0.0.1:8080");
     var isDrawing = false;
     var point = { x: null, y: null };
