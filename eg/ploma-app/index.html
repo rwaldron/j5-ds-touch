@@ -1,8 +1,6 @@
 <!doctype html>
 <html>
 <head>
-  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-  <meta content="utf-8" http-equiv="encoding">
   <script src="/socket.io/socket.io.js"></script>
   <style>
     body {
@@ -17,8 +15,8 @@
       left: 0px;
     }
     .button {
-      height: 50px;
-      width: 50px;
+      height: 48px;
+      width: 48px;
       position: absolute;
       top: 10px;
       font-family: sans-serif;
@@ -27,26 +25,17 @@
       color: white;
       cursor: pointer;
       border-radius: 2px;
-      line-height: 50px;
+      line-height: 48px;
       text-align: center;
     }
     .button img {
+      opacity: 0.4;
       margin-top: 13px;
+      width: 24px;
+      height: 24px;
     }
-    #mode {
-      left: 10px;
-    }
-    #clear {
-      left: 10px;
-    }
-    #save {
-      left: 80px;
-    }
-    #cursor {
-      left: 150px;
-    }
-    #texture {
-      left: 290px;
+    .button img:hover {
+      opacity: 1;
     }
     .noselect {
       -webkit-touch-callout: none;
@@ -56,6 +45,27 @@
       -ms-user-select: none;
       user-select: none;
     }
+    #clear {
+      left: 10px;
+    }
+    #save {
+      left: 80px;
+    }
+    #eraser {
+      left: 10px;
+      display: none;
+    }
+    /*
+    #clear {
+      left: 80px;
+    }
+    #save {
+      left: 150px;
+    }
+    #eraser {
+      left: 10px;
+    }
+    */
   </style>
 </head>
 
@@ -63,67 +73,41 @@
   <!-- Canvas -->
   <canvas id="canvas" class="noselect"></canvas>
   <!-- Buttons -->
-  <div id="clear" class="button noselect"><img src="img/paper-24.png"/></div>
-  <div id="save" class="button noselect"><img src="img/save-24.png"/></div>
-  <div id="cursor" class="button noselect"><img id="cursor-icon" src="img/cursor-24-75.png"/></div>
+
+  <div id="eraser" class="button noselect"><img src="img/eraser31-white.png"></div>
+  <div id="clear" class="button noselect"><img src="img/trash29-white.png"></div>
+  <div id="save" class="button noselect"><img src="img/save8-white.png"></div>
+  <!--
+  Icons made by Dave Gandy http://www.flaticon.com/authors/dave-gandy
+  Licensed by http://creativecommons.org/licenses/by/3.0/, CC BY 3.0
+  -->
 </body>
 
 <script src="ploma.js"></script>
-
 <script>
+  // This program is a derivative work, originating here:
+  // https://github.com/evhan55/ploma/blob/master/index.html
   "use strict";
 
-  var socket = io.connect("http://127.0.0.1:8080");
-
-  // DOM
-  var canvas;
-  var save;
-  var clear;
-  var cursor;
-
-  // State
-  var sampling = 2;
-  var ploma = null;
-  var w;// = 1300;
-  var h;// = 1000;
-  var isDrawing = false;
-
-  // Red Pixel
-  var r = new Uint8ClampedArray(16);
-  var rid;
-  r[0] = 255;
-  r[3] = 255;
-  r[4] = 255;
-  r[7] = 255;
-  r[8] = 255;
-  r[11] = 255;
-  r[12] = 255;
-  r[15] = 255;
-
-  /////////////
-  // ONLOAD
-  /////////////
   window.onload = function() {
+    var socket = io.connect("http://127.0.0.1:8080");
+    var isDrawing = false;
+    var point = { x: null, y: null };
 
-    // load DOM elements
-    canvas = document.getElementById("canvas");
+    var save = document.getElementById("save");
+    var clear = document.getElementById("clear");
+    var canvas = document.getElementById("canvas");
+
+    // Set initial canvas size, this will change on resize
+    // This MUST occur before initializing a new Ploma with
+    // this canvas object.
     canvas.setAttribute("width", window.innerWidth);
     canvas.setAttribute("height", window.innerHeight);
-    save = document.getElementById("save");
-    clear = document.getElementById("clear");
-    cursor = document.getElementById("cursor");
 
-    // populate red pixel
-    rid = canvas.getContext("2d").createImageData(2, 2);
-    rid.data.set(r);
-
-    // load Ploma onto canvas and clear it
-    ploma = new Ploma(canvas);
+    var ploma = new Ploma(canvas);
     ploma.clear();
 
-    ////////////
-    // BUTTONS
-    ////////////
+    // UI event handlers
     save.onclick = function(e) {
       window.open(canvas.toDataURL());
     };
@@ -132,33 +116,18 @@
       ploma.clear();
     };
 
-    cursor.onclick = function(e) {
-      // TODO: UPDATE CHECKBOX OR IMAGE ON BUTTON
-      if(canvas.style.cursor === "none") {
-        document.getElementById("cursor-icon").setAttribute("src", "img/cursor-24.png");
-        canvas.style.cursor = "crosshair";
-      } else {
-        document.getElementById("cursor-icon").setAttribute("src", "img/cursor-24-75.png");
-        canvas.style.cursor = "none";
-      }
-    };
-
     window.onresize = function(e) {
       ploma.resize(window.innerWidth, window.innerHeight);
     };
 
-
-    ////////////
-    // Drawing
-    ////////////
-
+    // Drawing from socket data events
     socket.on("down", function(data) {
       isDrawing = true;
 
       ploma.beginStroke(
         data.x,
         data.y,
-        0.9
+        1
       );
     });
 
@@ -170,8 +139,11 @@
       ploma.extendStroke(
         data.x,
         data.y,
-        0.9
+        1
       );
+
+      point.x = data.x;
+      point.y = data.y;
     });
 
     socket.on("up", function(data) {
@@ -180,7 +152,7 @@
       ploma.endStroke(
         data.x,
         data.y,
-        0.9
+        1
       );
     });
   };
