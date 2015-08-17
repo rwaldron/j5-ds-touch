@@ -11,6 +11,14 @@ A DS Touch Screen component plugin for [Johnny-Five](https://github.com/rwaldron
 
 The `DSTouch` class constructs objects that represent a single Nintendo DS Touch screen component.
 
+```js
+var touch = new DSTouch();
+
+touch.on("change", function() {
+  console.log(this.x, this.y);
+});
+```
+
 #### Parameters
 
 | Property   | Type      | Value(s)/Description      | Default | Required |
