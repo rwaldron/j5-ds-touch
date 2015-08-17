@@ -121,7 +121,7 @@
     };
 
     // Drawing from socket data events
-    socket.on("down", function(data) {
+    socket.on("touch:down", function(data) {
       isDrawing = true;
 
       ploma.beginStroke(
@@ -131,22 +131,24 @@
       );
     });
 
-    socket.on("move", function(data) {
+    socket.on("touch:move", function(data) {
       if (!isDrawing) {
         return;
       }
 
-      ploma.extendStroke(
-        data.x,
-        data.y,
-        1
-      );
+      if (point.x !== data.x || point.y !== data.y) {
+        ploma.extendStroke(
+          data.x,
+          data.y,
+          1
+        );
+      }
 
       point.x = data.x;
       point.y = data.y;
     });
 
-    socket.on("up", function(data) {
+    socket.on("touch:up", function(data) {
       isDrawing = false;
 
       ploma.endStroke(
