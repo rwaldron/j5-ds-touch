@@ -7,24 +7,25 @@
       margin: 0px;
       width: 100%;
       height: 100%;
+      background-color: rgb(255, 255, 246);
     }
     canvas#canvas {
       cursor: none;
       position: absolute;
-      top: 0px;
-      left: 0px;
+      top: 64px;
+      left: 8px;
+      border: 8px solid gray;
     }
     .button {
       height: 48px;
       width: 48px;
       position: absolute;
-      top: 10px;
+      top: 8px;
       font-family: sans-serif;
       font-size: 24px;
       background: rgba(50, 50, 50, 0.9);
       color: white;
       cursor: pointer;
-      border-radius: 2px;
       line-height: 48px;
       text-align: center;
     }
@@ -45,33 +46,22 @@
       -ms-user-select: none;
       user-select: none;
     }
-    #clear {
-      left: 10px;
-    }
     #save {
-      left: 80px;
+      left: 8px;
+    }
+    #clear {
+      left: 64px;
     }
     #eraser {
-      left: 10px;
+      left: 120px;
       display: none;
     }
-    /*
-    #clear {
-      left: 80px;
-    }
-    #save {
-      left: 150px;
-    }
-    #eraser {
-      left: 10px;
-    }
-    */
   </style>
 </head>
 
 <body>
   <!-- Canvas -->
-  <canvas id="canvas" class="noselect"></canvas>
+  <canvas id="canvas" class="noselect" width="800" height="700"></canvas>
   <!-- Buttons -->
 
   <div id="eraser" class="button noselect"><img src="img/eraser31-white.png"></div>
@@ -99,16 +89,11 @@
     var socket = io.connect("http://127.0.0.1:8080");
     var isDrawing = false;
     var point = { x: null, y: null };
+    var offset = { x: -100, y: -100 };
 
     var save = document.getElementById("save");
     var clear = document.getElementById("clear");
     var canvas = document.getElementById("canvas");
-
-    // Set initial canvas size, this will change on resize
-    // This MUST occur before initializing a new Ploma with
-    // this canvas object.
-    canvas.setAttribute("width", window.innerWidth);
-    canvas.setAttribute("height", window.innerHeight);
 
     var ploma = new Ploma(canvas);
     ploma.clear();
@@ -122,17 +107,13 @@
       ploma.clear();
     };
 
-    window.onresize = function(e) {
-      ploma.resize(window.innerWidth, window.innerHeight);
-    };
-
     // Drawing from socket data events
     socket.on("touch:down", function(data) {
       isDrawing = true;
 
       ploma.beginStroke(
-        data.x,
-        data.y,
+        data.x + offset.x,
+        data.y + offset.y,
         1
       );
     });
@@ -144,8 +125,8 @@
 
       if (point.x !== data.x || point.y !== data.y) {
         ploma.extendStroke(
-          data.x,
-          data.y,
+          data.x + offset.x,
+          data.y + offset.y,
           1
         );
       }
@@ -158,13 +139,11 @@
       isDrawing = false;
 
       ploma.endStroke(
-        data.x,
-        data.y,
+        data.x + offset.x,
+        data.y + offset.y,
         1
       );
     });
   };
-
 </script>
-
 </html>

@@ -22,8 +22,16 @@ touch.on("change", function() {
 #### Parameters
 
 | Property   | Type      | Value(s)/Description      | Default | Required |
-|------------|-----------|---------------------------|---------|-----------|
-| address    | number    | Address for I2C device \*  | 0x04    | no |
+|------------|-----------|---------------------------|---------|----------|
+| address    | number    | Address for I2C device \* | `0x04`  | no       |
+
+
+```js
+// Example of explicitly specified address
+var touch = new DSTouch({
+  address: 0x04
+});
+```
 
 \* The address used by this "backpack" component is `0x04`. This can be changed by [modifying the value in the firmware](https://github.com/rwaldron/j5-ds-touch/blob/master/firmware/ds_touch_slave.ino#L3). 
 
