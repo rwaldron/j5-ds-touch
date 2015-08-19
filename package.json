@@ -11,8 +11,8 @@
   ],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "es6-shim": "~0.33.0"
+  "peerDependencies": {
+    "es6-shim": "latest"
   },
   "optionalDependencies": {
     "socket.io": "^1.3.6"
