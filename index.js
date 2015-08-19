@@ -1,6 +1,20 @@
 var Emitter = require("events").EventEmitter;
 var util = require("util");
 
+var aliased = {
+  down: ["pointerdown", "down"],
+  move: ["pointermove", "move"],
+  up: ["pointerup", "up"],
+};
+
+function emitForAliases(emitter, event, data) {
+  var aliases = aliased[event];
+
+  aliases.forEach(function(alias) {
+    emitter.emit(alias, data);
+  });
+}
+
 module.exports = function(five) {
   return (function() {
 
@@ -37,7 +51,7 @@ module.exports = function(five) {
 
         if (x === 1023 && y === 1023 && state.touching) {
           state.touching = false;
-          this.emit("up", {
+          emitForAliases(this, "up", {
             x: state.x,
             y: state.y
           });
@@ -52,12 +66,12 @@ module.exports = function(five) {
           } else {
             if (state.pending) {
               state.pending = false;
-              this.emit("down", {
+              emitForAliases(this, "down", {
                 x: x,
                 y: y
               });
             }
-            this.emit("move", {
+            emitForAliases(this, "move", {
               x: x,
               y: y
             });
