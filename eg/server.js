@@ -1,12 +1,5 @@
-try {
-  var socket = require("socket.io");
-  var five = require("johnny-five");
-} catch (e) {
-  console.log("You must: \n\nnpm install socket.io johnny-five\n\n");
-  return;
-}
-
 // Server deps
+var socket = require("socket.io");
 var http = require("http");
 var fs = require("fs");
 var exec = require("child_process").exec;
@@ -35,7 +28,14 @@ var app = http.createServer(function(req, res) {
 app.listen(8080);
 
 var io = socket.listen(app);
+
+// Hardware Deps
+var five = require("johnny-five");
 var board = new five.Board();
+
+// Alt. version:
+// var Edison = require("edison-io");
+// var board = new five.Board({ io: new Edison() });
 
 board.on("ready", function() {
   var screen = new DSTouch();
