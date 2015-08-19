@@ -1,5 +1,7 @@
 # DSTouch
 
+[![Build Status](https://travis-ci.org/rwaldron/j5-ds-touch.svg?branch=master)](https://travis-ci.org/rwaldron/j5-ds-touch)
+
 A DS Touch Screen component plugin for [Johnny-Five](https://github.com/rwaldron/johnny-five).
 
 - [SparkFun Nintendo DS Screen Kit](https://www.sparkfun.com/products/13631)
