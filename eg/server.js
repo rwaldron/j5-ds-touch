@@ -1,13 +1,17 @@
+try {
+  var socket = require("socket.io");
+  var five = require("johnny-five");
+} catch (e) {
+  console.log("You must: \n\nnpm install socket.io johnny-five\n\n");
+  return;
+}
+
 // Server deps
 var http = require("http");
-var socket = require("socket.io");
 var fs = require("fs");
 var exec = require("child_process").exec;
 
-// Hardware deps
-var five = require("johnny-five");
 var DSTouch = require("../")(five);
-
 
 var app = http.createServer(function(req, res) {
   var path = __dirname;
