@@ -47,18 +47,18 @@ var touch = new DSTouch({
 
 #### Events
 
-- **change** The "change" event is emitted whenever the `[x, y]` coordinates of the pointer has changed.
+- **change** Fired whenever the `[x, y]` coordinates of the pointer has changed.
 
-- **data** The "data" event is fired as frequently as the user defined `freq` will allow in milliseconds.
+- **data** Fired as frequently as the hardware can be read.
 
-- **down** The pointer is touching the surface, but was previously not touching the surface.
+- **down / pointerdown** The pointer makes physical contact with the surface, but was previously not touching the surface (similar to the browser **mousedown** or **pointerdown** event).
 
-- **move** The pointer is touching the surface and has changed coordinates since the last position was read. 
+- **move / pointermove** The pointer is touching the surface and has changed coordinates since the last position was read (similar to the browser **mousemove** or **pointermove** event).
 
-- **up** The pointer is not touching the surface, but was previously touching the surface.
+- **up / pointerup** The pointer no longer has physical contact with surface, but was previously touching the surface (similar to the browser **mouseup** or **pointerup** event).
 
 
-NOTE: The word _pointer_ means either stylus or finger.
+NOTE: The word _pointer_ means either capacitive or resistive stylus, or finger.
 
 
 
@@ -87,7 +87,7 @@ var board = new five.Board();
 board.on("ready", function() {
   var touch = new DSTouch();
 
-  touch.on("move", function() {
+  touch.on("pointermove", function() {
     console.log({ x: this.x, y: this.y });
   });
 });
@@ -108,7 +108,7 @@ var board = new five.Board({
 board.on("ready", function() {
   var touch = new DSTouch();
 
-  touch.on("move", function() {
+  touch.on("pointermove", function() {
     console.log({ x: this.x, y: this.y });
   });
 });
@@ -134,7 +134,7 @@ var board = new five.Board({
 board.on("ready", function() {
   var touch = new DSTouch();
 
-  touch.on("move", function() {
+  touch.on("pointermove", function() {
     console.log({ x: this.x, y: this.y });
   });
 });
