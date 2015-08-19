@@ -1,5 +1,3 @@
-// require("es6-shim");
-
 var Emitter = require("events").EventEmitter;
 var util = require("util");
 
@@ -27,17 +25,22 @@ module.exports = function(five) {
       this.io.i2cConfig(opts);
 
       this.io.i2cRead(address, 4, function(data) {
-        var present = "";
         var x = five.Fn.int16(data[0], data[1]);
         var y = five.Fn.int16(data[2], data[3]);
 
         if (x !== state.x || y !== state.y) {
-          this.emit("change", { x: x, y: y });
+          this.emit("change", {
+            x: x,
+            y: y
+          });
         }
 
         if (x === 1023 && y === 1023 && state.touching) {
           state.touching = false;
-          this.emit("up", { x: state.x, y: state.y });
+          this.emit("up", {
+            x: state.x,
+            y: state.y
+          });
         }
 
         if (x !== 1023 && y !== 1023) {
@@ -49,9 +52,15 @@ module.exports = function(five) {
           } else {
             if (state.pending) {
               state.pending = false;
-              this.emit("down", { x: x, y: y });
+              this.emit("down", {
+                x: x,
+                y: y
+              });
             }
-            this.emit("move", { x: x, y: y });
+            this.emit("move", {
+              x: x,
+              y: y
+            });
           }
 
           state.touching = true;
