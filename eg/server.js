@@ -4,7 +4,14 @@ var http = require("http");
 var fs = require("fs");
 var exec = require("child_process").exec;
 
+// Hardware Deps
+var five = require("johnny-five");
 var DSTouch = require("../")(five);
+var board = new five.Board();
+
+// Alt. version:
+// var Edison = require("edison-io");
+// var board = new five.Board({ io: new Edison() });
 
 var app = http.createServer(function(req, res) {
   var path = __dirname;
@@ -28,14 +35,6 @@ var app = http.createServer(function(req, res) {
 app.listen(8080);
 
 var io = socket.listen(app);
-
-// Hardware Deps
-var five = require("johnny-five");
-var board = new five.Board();
-
-// Alt. version:
-// var Edison = require("edison-io");
-// var board = new five.Board({ io: new Edison() });
 
 board.on("ready", function() {
   var screen = new DSTouch();
